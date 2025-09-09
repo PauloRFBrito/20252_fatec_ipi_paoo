@@ -1,6 +1,8 @@
-                // //Aula 3
-                // //CLOSURES
-// //-------------------------------------------------------------------
+         // **********  AULA 3  ********** //
+        // ********** 20/08/25 ********** //
+        
+                    //CLOSURES        
+// //------------------------------------------------------
 // // closure é uma função que se "lembra" do ambiente — ou escopo — em que foi criada.** Isso significa que ela carrega consigo, como em uma "mochila", todas as variáveis que estavam ao seu alcance no momento de sua criação, mesmo que ela seja executada em um lugar e momento completamente diferentes.
 // //-------------------------------------------------------------------
 
@@ -243,57 +245,57 @@ interpolando em um único console.log "${}"
 
 //Exemplo de processamento síncrono ou bloqueante ou sequencial:
 
-console.log('Eu primeiro...')
-console.log('Agora eu...')
-console.log('Sempre o último...')
+// console.log('Eu primeiro...')
+// console.log('Agora eu...')
+// console.log('Sempre o último...')
 
-console.log('----------------------------')
+// console.log('----------------------------')
 //Note este outro exemplo que resulta em um número:
 
 // const a = 2 + 7
 // const b = 5
 // console.log(a + b)
 /* Barreira - a linha acima possui uma dependência das linhas anteriores.
-   Note que a e b não possuem dependência entre si!   
+Note que a e b não possuem dependência entre si!   
 */
 
 //Exemplo: Uma função que demora para terminar
 
 //Pegar a data atual do SO e desloca-lo 2 seg a frente com um loop
 
-function demorada() {
-    const atualMais2Segundos = new Date().getTime() + 2000
-        while(new Date().getTime() <= atualMais2Segundos);
-            const d = 8 + 4
-            return d
-}
+// function demorada() {
+// const atualMais2Segundos = new Date().getTime() + 2000
+//         while(new Date().getTime() <= atualMais2Segundos);
+//             const d = 8 + 4
+//             return d
+// }
 // a demorada(), trava o js por 2 seg, while é bloqueante.
 // Após os 2seg retorna d = 12.
 
-const a = 2 + 6
-const b = 5 + 9
+// const a = 2 + 6
+// const b = 5 + 9
 // Execuções síncronas,
 
-setTimeout(() => {
-    const tempo = 2000
-    const d = demorada(tempo)
-    console.log(`d(${tempo}): ${d}`)
-}, 0)
+// setTimeout(() => {
+//     const tempo = 2000
+//     const d = demorada(tempo)
+//     console.log(`d(${tempo}): ${d}`)
+// }, 0)
 /*
 Esse setTimeout é assíncrono;
 colocado na fila de eventos,
 só roda depos que toda parte síncrona terminar.
 */
 
-const d = demorada() // Trava por 2 seg e retorna d=12
-const e = 2 + a + b 
-console.log(`e: ${e}`) // Ocorre após a execução da demorada().
+// const d = demorada() // Trava por 2 seg e retorna d=12
+// const e = 2 + a + b 
+// console.log(`e: ${e}`) // Ocorre após a execução da demorada().
 
 
-setTimeout(() => {
-    const d = demorada()
-    console.log(`d: ${d}`)
-}, 0)
+// setTimeout(() => {
+//     const d = demorada()
+//     console.log(`d: ${d}`)
+// }, 0)
 /* Esse callback é executado após todas execuções
 síncronas.
 Dentro dele, a demorada(), trava mais 2seg antes de imprimir.
@@ -306,47 +308,160 @@ Dentro dele, a demorada(), trava mais 2seg antes de imprimir.
 4 - Callback do primeiro setTimeout 
 5 - Callback do segundo setTimeout chama demorada() -> trava mais 2seg -> imprime d: 12
  */
-console.log('----------------------------')
+// console.log('----------------------------')
 
             // INFERNO DE CALLBACKS (calllback hell)
 // Operações I/O bound, execução + demorada que a RAM.
     
 // Criando uma arquivo txt
-const fs = require('fs')
+// const fs = require('fs')
 // fs (file system)->módulo nativo js que tem funções de CRUD  
 
-const abriArquivo = function(nomeArquivo) {
+// const abriArquivo = function(nomeArquivo) {
    
-    const exibirConteudo = function(erro, conteudo) { //6. callback exibirConteudo dispara
-        if(erro) { // Caso o arq não exista!
-            console.log(`Arquivo inexistente, criando agora! ${erro}`)
-            fs.writeFile(nomeArquivo, //callback de escrita 
-                'Arquivo incializado!',
-                function(erro) {
-                    if(erro) {
-                        console.log(`Deu erro: ${erro}`)
-                    }
-                    else { 
-                        console.log('Arquivo criado com sucesso!')
-                    }
-                })
-        } 
-        else {
-            console.log(`Conteudo lido: ${conteudo}`)
-            fs.writeFile(nomeArquivo, conteudo + //callback
-                '\nNova linha adicionada!', 
-                function(erro) {
-                    if(erro) {
-                        console.log(`Deu erro: ${erro}`)
-                    } 
-                     else {
-                        console.log(`Arquivo atualizado!`)
-                    }
-                })
-        }
-    }
-    fs.readFile(nomeArquivo, 'utf8', exibirConteudo) //3. oper assínc iniciada
-    console.log('Fim da abrirArquivo!') //4. exec imediata //5. node continua exec eventos assínc
-}
-abriArquivo('arquivo.txt') //1. func chamada
+//     const exibirConteudo = function(erro, conteudo) { //6. callback exibirConteudo dispara
+//         if(erro) { // Caso o arq não exista!
+//             console.log(`Arquivo inexistente, criando agora! ${erro}`)
+//             fs.writeFile(nomeArquivo, //callback de escrita 
+//                 'Arquivo incializado!',
+//                 function(erro) {
+//                     if(erro) {
+//                         console.log(`Deu erro: ${erro}`)
+//                     }
+//                     else { 
+//                         console.log('Arquivo criado com sucesso!')
+//                     }
+//                 })
+//         } 
+//         else {
+//             console.log(`Conteudo lido: ${conteudo}`)
+//             fs.writeFile(nomeArquivo, conteudo + //callback
+//                 '\nNova linha adicionada!', 
+//                 function(erro) {
+//                     if(erro) {
+//                         console.log(`Deu erro: ${erro}`)
+//                     } 
+//                      else {
+//                         console.log(`Arquivo atualizado!`)
+//                     }
+//                 })
+//         }
+//     }
+//     fs.readFile(nomeArquivo, 'utf8', exibirConteudo) //3. oper assínc iniciada
+//     console.log('Fim da abrirArquivo!') //4. exec imediata //5. node continua exec eventos assínc
+// }
+// abriArquivo('arquivo.txt') //1. func chamada
 //2. DEFINE func exibirConteudo
+
+
+            // **********  AULA 4  ********** //
+            // ********** 27/08/25 ********** //
+        
+//git status -s
+//git log --oneline
+
+                    //PROMISES       
+//------------------------------------------------------
+//  PROMISE -> objeto que tem associado uma computação demorada.
+// Uma Promise é um objeto por meio do qual uma função pode propagar um resultado ou um erro em algum momento no futuro. Sempre que tenho uma promise, tenho um processamenteo demorado.
+// Um objeto que representa a eventual conclusão (ou falha) de uma operação assíncrona.
+
+// Estados de uma promise: 
+// - Pending(computando a ação);
+// - Fullfilled; 
+// - Rejected
+//-------------------------------------------------------------------
+
+// console.log('Começando...') //1° execução
+
+// function calculoDemorado(n) { //Promise criada e imediatamente executada.
+//     let p = new Promise(function (resolve, rejected){ 
+//         //É passado um único paramêtro para uma promise. 
+//         // Se terminar com sucesso -> funcao resolve, 
+//         // Se terminar com erro -> funcao reject
+//         let res = 0 
+//         for(let i = 1; i <= n; i++){
+//             res = res + i;
+//             // console.log(res)
+//         }
+//         resolve(res) //O valor de 'res' é enviado para o '.then()'
+//     }) 
+//     return p //A função retorna a Promise no estado 'pending'
+// }
+// //2° chamada da função minhaPromise
+// let minhaPromise = calculoDemorado(10) //calculoDemorado -> apenas constroi e retorna de imediato a promise. 
+
+// //3° then/catch - ficam aguardando a Promise mudar de estado
+// minhaPromise
+// .then((somatorio) => { //Esta função é executado quando 'resolve' for chamado
+//     console.log(`Somatório: ${somatorio}`) //O valor passso no 'resolve(res)' aqui é o paramêtro 'somatorio'
+// })
+// .catch((erro) => {  //Esta função seria executa se 'reject' fosse chamado
+//     console.log(`Erro: ${erro}.`)
+// })
+// //4° a execução do script principal continua
+// console.log('Terminando o Script principal...') //Note que ele é exibido antes do somatório.
+
+// console.log('Começando...')
+
+// function calculoRapidinho(n){
+//     return n >= 0 ? 
+//     Promise.resolve((n/2) * (n+1)) : Promise.reject('Somente positivos!') //Método da classe. Cria uma Promise que já nasce resolved ou reject.
+// }
+
+// let minhaPromise = calculoRapidinho(10)
+
+// minhaPromise
+// .then((res) => {
+//     console.log(`Resultado: ${res}`)
+// })
+// .catch((erro) => {
+//     console.log(`Erro: ${erro}`)
+// })
+// console.log('Processos assíncronos acontecem antes do .then((res))')
+
+// let minhaPromise2 = calculoRapidinho(1)
+// .then(res => {
+//     console.log(`Resultado: ${res}`)
+// })
+// .catch(erro => console.log(`Errp: ${erro}`))
+// console.log('Terminando...')
+
+// function f(a) {
+//     console.log(a)
+// }
+// const a = 2
+// f(a)
+
+// const a = 2 + 2
+
+// function f(){
+//     return () => 2
+// }
+
+// const b = f()() //resulta na arrow function que produz 2
+
+            //CRIANDO UMA API
+/*
+Visitar openweathermap.org.api
+
+Utilizar a API ->  5 Day/3 Hour forecast data
+Fazer uso de promises para conversar com os paramêtros de previsões.
+-Será necessário uma chave API,fazer registro no site.
+-Guarde sua chave API 'My API keys'
+-Crie um novo folder chamado intro dentro da raiz 'js' e concentre todos os arquivos lá.
+-Crie um novo folder chamado 'previsao_do_tempo' (projeto node)
+-Entre no novo folder no terminal
+
+1° passso  - Criar o arquivo package JSON
+    npm init -y (o y é de yes)
+    criado o arquivo json 'package.json'
+
+2° criar arquivo index.js
+    baixar bliblitoeca axios através da linha de comando
+    npm i axios
+
+3° criar na raiz 'PAOO' o .gitignore afim de filtrar o controle de versão
+
+Continua no arquivo 'index.js'
+*/

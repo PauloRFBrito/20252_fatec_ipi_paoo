@@ -66,3 +66,11 @@ Antes de rodar:
 //npm run dev
 //ou
 //npm start
+
+        //RELEMBRANDO COMANDOS DE COMMIT
+
+//git add.
+//git status -s
+//git log --oneline
+//git commit       
+//git push origin main

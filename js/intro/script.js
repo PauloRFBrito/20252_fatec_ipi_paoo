@@ -463,5 +463,5 @@ Fazer uso de promises para conversar com os paramêtros de previsões.
 
 3° criar na raiz 'PAOO' o .gitignore afim de filtrar o controle de versão
 
-Continua no arquivo 'index.js'
+Continuação em: previsao_do_tempo -> index.js
 */

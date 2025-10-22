@@ -1,5 +1,9 @@
-const { v4 : uuidv4 } = require('uuid')
-const express = require('express')
+import express from 'express';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+
+// const { v4 : uuidv4 } = require('uuid')
+// const express = require('express')
 const app = express()
 app.use(express.json())
 //Importa o uuid para gerar IDs únicos para as observações.
@@ -61,3 +65,9 @@ app.get('/lembretes/:id/observacoes', (req, res) => {
 const port = 5000
 app.listen(port, () => console.log(`Observações. Porta ${port}.`))
 // Sobe o segundo servidor, agora na porta 5000.
+
+app.post('/eventos', (req, res) => {
+  const evento = req.body
+  console.log(evento)
+  res.end()
+})

@@ -1,4 +1,7 @@
-const express = require('express')
+import 'dotenv/config'
+import axios from 'axios'
+import express from 'express'
+
 const app = express()
 app.use(express.json())
 //Importa o Express e cria a aplicação.
@@ -26,12 +29,16 @@ const lembretes = {}
 
 //Definindo um endpoint que permite que lembretes sejam cadastrados
 //POST /lembretes (req, res) => {}  
-app.post('/lembretes', function(req, res){
+app.post('/lembretes', async function(req, res){
   id++
   const texto = req.body.texto
   // const lembrete = { id: id, texto: texto}
   const lembrete = { id, texto }
   lembretes[id] = lembrete
+  await axios.post('http://localhost:10000/eventos', {
+    type: 'LembreteCriado',
+    payload: lembrete //carga util
+  })
   res.status(201).json(lembrete)
 })
 //Quando alguém faz um POST em /lembretes, o servidor cria um novo lembrete com ID automático.
@@ -47,3 +54,10 @@ const port = 4000
 app.listen(4000, () => console.log(`Lembretes. Porta ${port}.`))
 //Inicia o servidor na porta 4000.
 //Se estiver tudo certo, aparecerá no terminal: Lembretes. Porta 4000.
+
+//Endpoint relacionado a eventos
+app.post('/eventos', (req, res) => {
+  const evento = req.body
+  console.log(evento)
+  res.end()
+})

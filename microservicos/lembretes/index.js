@@ -35,6 +35,7 @@ app.post('/lembretes', async function(req, res){
   // const lembrete = { id: id, texto: texto}
   const lembrete = { id, texto }
   lembretes[id] = lembrete
+  // console.log(`[LEMBRETE] criado #${id} - "${texto}"`)
   await axios.post('http://localhost:10000/eventos', {
     type: 'LembreteCriado',
     payload: lembrete //carga util

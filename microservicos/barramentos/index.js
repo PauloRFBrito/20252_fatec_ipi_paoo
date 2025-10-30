@@ -17,6 +17,8 @@ app.post('/eventos', (req, res) => {
     console.log(evento)
     axios.post('http://localhost:4000/eventos', evento) //Uso do pacote axios. 4000 - porta de lembretes
     axios.post('http://localhost:5000/eventos', evento)
+    axios.post('http://localhosta:6000/eventos', evento)
+    console.log(req.body)
     res.end()
 })
 

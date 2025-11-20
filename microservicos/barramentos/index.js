@@ -14,10 +14,11 @@ app.use(express.json()) //Pega o corpo da requisição e converte para obj JavSc
 //POST /eventos
 app.post('/eventos', (req, res) => {
     const evento = req.body
-    console.log(evento)
+    console.log('Repassando evento:', evento)
     axios.post('http://localhost:4000/eventos', evento) //Uso do pacote axios. 4000 - porta de lembretes
     axios.post('http://localhost:5000/eventos', evento)
-    axios.post('http://localhosta:6000/eventos', evento)
+    axios.post('http://localhost:6000/eventos', evento)
+    axios.post('http://localhost:7000/eventos', evento)
     console.log(req.body)
     res.end()
 })

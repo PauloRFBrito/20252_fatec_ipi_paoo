@@ -44,7 +44,7 @@ app.post('/lembretes/:id/observacoes', (req, res) => {
   const idObs = uuidv4() //Gera id para obs cadastrada
   const { texto } = req.body //Extrai textto que user enviou pela req
   const { id: lembreteId } = req.params //Pega id pelo lembrete
-  const observacao = {id: idObs, texto, lembreteId} //Construção do objeto
+  const observacao = {id: idObs, texto, lembreteId, status: 'aguardando'} //Construção do objeto
   const observacoesDoLembrete = observacoesPorLembrete[lembreteId] || [] //Extração da lista
   observacoesDoLembrete.push({observacao}) //Adiçaõ da lista
   observacoesPorLembrete[lembreteId] = observacoesDoLembrete //Ajuste de ponteiro

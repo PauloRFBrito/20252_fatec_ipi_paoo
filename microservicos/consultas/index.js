@@ -28,6 +28,7 @@ app.use(express.json())
 */
 const baseConsolidada = {}
 
+//Mapa de funções
 const funcoes = {
     // A função deve receber um lembrete e cadastrá-lo na base consolidada 
     LembreteCriado: (lembrete) => {
@@ -39,6 +40,13 @@ const funcoes = {
         const observacoes = baseConsolidada[observacao.lembreteId]['observacoes']  || []
         observacoes.push(observacao)
         baseConsolidada[observacao.lembreteId]['observacoes']
+    },
+
+    ObservacaoAtualizada: (observacao) => {
+        //Encontrar por id e substituir
+        const observacoes = baseConsolidada[observacao.lembreteId]['observacoes']
+        const indice = observacoes.findIndex(o => id === observacao.id)
+        observacoes[indice] = observacao
     }
 }
 
@@ -58,8 +66,8 @@ app.post('/eventos', (req, res) => {
         // const type: evento.type
         // const payload: evento.payload
         const { type, payload } = evento
-        console.log(`type: ${type}`)
-        console.log(`payload: ${payload}`)
+        // console.log(`type: ${type}`)
+        // console.log(`payload: ${payload}`)
         //Tratamento do evento -> Acessar o mapa de funções na pos type e chamar a func resultante entregando a ela, como parametro, o payload
         funcoes[type](payload)
     }

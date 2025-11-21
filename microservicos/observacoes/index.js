@@ -11,21 +11,6 @@ app.use(express.json())
 //Configura o servidor Express.
 //uuid: Universally unique identifier
 
-/*
-{
-  1: [
-    {id: 100, texto: 'comprar acucar', lembreteId: 1}
-  ],
-  2: [
-    {id: 1000, texto: 'qq coisa', lembreteId: 2}, 
-    {id: 1001, texto: 'outra coisa', lembreteId: 2}
-  ],
-  3: [
-  
-  ]
-}
-*/
-
 const observacoesPorLembrete = {}  
 //Aqui ficam guardadas as observações associadas a cada lembrete.
 //Formato esperado: 
@@ -39,15 +24,34 @@ const observacoesPorLembrete = {}
 //   ],
 //}
 
+const funcoes = {
+  ObservacaoClassificada: (observacao) => {
+    //Busca  e update na base local
+    const observacoes = observacoesPorLembrete[observacao.lembreteId]
+    const obsParaAtualizar = observacoes.find(o => o.id === observacao.id)
+    obsParaAtualizar.status = observacao.status 
+//Emitir um evento de tipo ObservacaoAtualizada e cujo payload seja a propria observacao
+    axios.post('http://localhost:10000/eventos', {
+    type: 'ObservacaoAtualizada',
+    paylaod: observacao
+  }) 
+  }
+}
+
 //POST /lembretes/1/observacoes (req, res) => {}
 app.post('/lembretes/:id/observacoes', (req, res) => {
   const idObs = uuidv4() //Gera id para obs cadastrada
   const { texto } = req.body //Extrai textto que user enviou pela req
   const { id: lembreteId } = req.params //Pega id pelo lembrete
+  
   const observacao = {id: idObs, texto, lembreteId, status: 'aguardando'} //Construção do objeto
+ 
   const observacoesDoLembrete = observacoesPorLembrete[lembreteId] || [] //Extração da lista
+  
   observacoesDoLembrete.push({observacao}) //Adiçaõ da lista
+  
   observacoesPorLembrete[lembreteId] = observacoesDoLembrete //Ajuste de ponteiro
+  
   axios.post('http://localhost:10000/eventos', {
     type: 'ObservacaoCriada',
     paylaod: observacao
@@ -69,10 +73,15 @@ app.get('/lembretes/:id/observacoes', (req, res) => {
 //ou uma lista vazia se ainda não existir. Permite listar todas as observações de um lembrete específico.
 
 app.post('/eventos', (req, res) => {
-  const evento = req.body
-  console.log(evento)
-
-  res.end() //Sempre preciso responder o fimal de uma  req
+  try{
+    const evento = req.body
+    console.log(evento)
+    funcoes[evento.type](evento.paylaod)
+    res.end() //Sempre preciso responder o final de uma  req
+  }
+  catch(e){
+    console.log(e)
+  }
 })
 
 const port = 5000
